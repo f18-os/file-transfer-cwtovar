@@ -60,7 +60,7 @@ if s is None:
 
 while(True):
     fileName = input("Enter a File to Transfer: ")
-    framedSend(s, b"Filename"+fileName.encode(), debug)
+    framedSend(s, b"Filename "+fileName.encode(), debug)
     print("received: ", framedReceive(s, debug))
     try:
         with  open(fileName, "rb") as f:
@@ -74,10 +74,3 @@ while(True):
     except:
         print("File Not Found. Try Again")
         pass
-framedSend(s, b"hello world", debug)
-print("received:", framedReceive(s, debug))
-
-print("sending hello world")
-framedSend(s, b"hello world", debug)
-print("received:", framedReceive(s, debug))
-
