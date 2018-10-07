@@ -34,9 +34,22 @@ while True:
         print("new child process handling connection from", addr)
         while True:
             payload = framedReceive(sock, debug)
-            if debug: print("rec'd: ", payload)
-            if not payload:
-                if debug: print("child exiting")
-                sys.exit(0)
-            payload += b"!"             # make emphatic!
-            framedSend(sock, payload, debug)
+            if "put" in payload.decode() && len(payload.decode().split()):   
+                cmd=payload.split()
+            # get the current script path.
+                subdir = "serverDir"
+                newFile = os.path.join(os.path.dirname(os.path.realpath(__file__)), subdir, cmd[1])
+            # create an empty file.
+            try:
+                with open(newFile, "a") as copyFile:
+                    while True:
+                        payload = framedReceive(sock, debug)
+                        if not payload:
+                            if debug: print("child exiting")
+                            sys.exit(0)
+                        copyFile.write(payload.decode())
+                
+            except IOError:
+                print( "Wrong path provided")
+            #if debug: print("rec'd: ", payload)
+            #framedSend(sock, payload, debug)
